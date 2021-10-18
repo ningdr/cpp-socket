@@ -6,7 +6,7 @@ int main() {
     //¼ÓÔØÌ×½Ó×Ö¿â
     WORD wVersionRequested;
     WSADATA wsaData;
-    wVersionRequested = MAKEWORD(1, 1);
+    wVersionRequested = MAKEWORD(2, 2);
     if (WSAStartup(wVersionRequested, &wsaData) != 0) {
         spdlog::error("ERROR: Start WAS Failed {}", WSAGetLastError());
         return 0;

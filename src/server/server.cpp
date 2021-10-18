@@ -9,18 +9,12 @@ int main() {
     //加载套接字库
     WORD wVersionRequested;
     WSADATA wsaData;
-    wVersionRequested = MAKEWORD(1, 1);
+    wVersionRequested = MAKEWORD(2, 2);
     if (WSAStartup(wVersionRequested, &wsaData) != 0) {
         spdlog::error("ERROR: Start WAS Failed {}", WSAGetLastError());
         return 0;
     }
 
-    if (LOBYTE(wsaData.wVersion) != 1 ||     //低字节为主版本
-        HIBYTE(wsaData.wVersion) != 1)      //高字节为副版本
-    {
-        WSACleanup();
-        return 0;
-    }
     // 创建用于监听的套接字
     SOCKET socketListen = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socketListen == INVALID_SOCKET) {
@@ -59,7 +53,8 @@ int main() {
 
     while (true) {
         spdlog::debug("Waiting for connection...");
-        if (accept(socketListen, (SOCKADDR *) &remoteAddress, &remoteAddressLen) == INVALID_SOCKET) {
+        client = accept(socketListen, (SOCKADDR *) &remoteAddress, &remoteAddressLen);
+        if (client == INVALID_SOCKET) {
             spdlog::error("ERROR: Accept Information Failed, Continue");
             continue;
         }
