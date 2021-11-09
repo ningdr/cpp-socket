@@ -20,7 +20,7 @@ int main() {
 
     sockaddr_in serverAddress{};
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(8689);
+    serverAddress.sin_port = htons(7474);
     serverAddress.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
     if (connect(client, (sockaddr *) &serverAddress, sizeof(serverAddress)) == SOCKET_ERROR) {
         spdlog::error("ERROR: Connect Server Failed {}", WSAGetLastError());
@@ -28,14 +28,9 @@ int main() {
         return 0;
     }
 
-    std::string data = "12345678901234567890";
-//    if (send(client, data.c_str(), int(data.size()), 0) != 0) {
-//        spdlog::error("ERROR: Send Data Failed {}", WSAGetLastError());
-//        closesocket(client);
-//        return 0;
-//    }
+    char data[] = {0x11, 0x01};
     spdlog::debug("sending...");
-    send(client, data.c_str(), int(data.size()), 0);
+    send(client, data, sizeof(data) / sizeof(char), 0);
     spdlog::debug("finish...");
 
     char recData[255];
@@ -44,7 +39,11 @@ int main() {
         recData[ret] = 0x00;
         spdlog::info("Received data is: {}", std::string(recData));
     }
-
+    int x = 0;
+    int y = 0;
+    memcpy(&x, recData, sizeof(int));
+    memcpy(&y, recData + sizeof(int), sizeof(int));
+    spdlog::info("data is x = {}, y = {}.", x, y);
     closesocket(client);
     WSACleanup();
     return 0;
