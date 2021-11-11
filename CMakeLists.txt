@@ -12,6 +12,8 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 add_subdirectory(src/client)
 add_subdirectory(src/server)
+add_subdirectory(src/apple)
+add_subdirectory(src/correct)
 
 # 并且把该目录设为连接目录
 link_directories(

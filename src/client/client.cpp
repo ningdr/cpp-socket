@@ -28,7 +28,7 @@ int main() {
         return 0;
     }
 
-    char data[] = {0x11, 0x01};
+    char data[] = {0x11, '1'};
     spdlog::debug("sending...");
     send(client, data, sizeof(data) / sizeof(char), 0);
     spdlog::debug("finish...");
