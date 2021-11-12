@@ -5,6 +5,11 @@ const int n = 6;
 int p[]= {0, 1, 4, 4, 7, 8, 9};
 int R[n + 1] = {0,};
 
+/// 1、确定状态，数组的每个元素的含义，数组的大小
+/// 2、转移方程
+/// 3、初始条件、边界条件
+/// 4、计算顺序
+
 int main() {
     using namespace std;
     spdlog::set_level(spdlog::level::debug);
