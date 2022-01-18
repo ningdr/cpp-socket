@@ -137,6 +137,9 @@ int main() {
     using namespace std;
     int width = 10;
 
+    int a[3];
+    std::cout << "a size: " << sizeof(a) << std::endl;
+
     int x = 4;
     int y = 3;
     int res = find(x, y, width);

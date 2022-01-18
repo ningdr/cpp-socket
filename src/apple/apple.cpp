@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 struct Best {
     int M;
